@@ -4,6 +4,8 @@ CS260 Assignment 1
 Bag of Marbles
 
 I've typed marble so many times that the word sounds weird now.
+
+Adding something for github 
 """
 
 import random
