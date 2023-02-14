@@ -72,6 +72,11 @@ bool binary_find(int desired_value, int an_array[], int array_size){
             cout<<an_array[mid]<<" Found at position "<<mid<<endl;
             cout<<"BigO count: "<<bigO_count<<endl;
             return true;
+        }else if(an_array[low] == desired_value || an_array[high-1] == desired_value){
+            ++bigO_count;
+            cout<<desired_value<<" Found at end or beginning of array"<<endl; //This could be better, keeping it simple for now.
+            cout<<"BigO count: "<<bigO_count<<endl;
+            return true;            
         }else if(an_array[mid] < desired_value){
             ++bigO_count;
             low = mid + 1;
