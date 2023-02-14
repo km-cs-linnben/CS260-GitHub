@@ -4,70 +4,20 @@ CS260
 Assignment 5
 Program automatically sorts inserted values in a list.
 Program can return True/False or the position of a value being searched for.
+
+Unfortunately the inserted value erases the current value at that position because I
+lack the skills to make arrays grow and shrink in size as I add and remove values.
+BUT...it does put the value in the right spot.
 */
 
 #include <iostream>
 #include <array>
-#include <math.h>
 #include <sstream>
 #include <string>
 
+#include "a5_functions.h"
 
 using namespace std;
-
-void fill_array(int an_array[]){
-    for (int i=0; i < 10; i++){
-        an_array[i] = pow(i,2);
-    }
-}
-
-void insert_value(int value, int an_array[]){
-    for(int i=0; i<10; i++){
-        if(value > an_array[i]){
-            continue;
-        }else{
-            an_array[i-1] = value;
-            break;
-        }
-    }
-}
-
-//No idea how this works, I just kept typing stuff until it did what I wanted.
-//Ask Joseph why this works*************************
-//Creates an array of the specified size. Then fills it with some numbers.
-int *create_array(int length){
-    int *new_array = new int [length];  // <-specifically this part
-
-    for (int i=0; i < length; i++){
-        new_array[i] = pow(i,2);
-    }
-    return new_array;
-}
-
-bool find_inarray(int desired_value, int an_array[], int array_size){
-
-    for(int i = 0; i < array_size; i++){
-        if(an_array[i] == desired_value){
-            int found_value = an_array[i];
-            return true;
-            break;
-        }
-    }
-    //if(result == true){} <- why does it not recognize result?********************
-}
-
-//Why does this break if I change to a void type function and erase the return line?
-int int_find_inarray(int desired_value, int an_array[], int array_size){
-
-    for(int i = 0; i < array_size; i++){
-        if(an_array[i] == desired_value){
-            int found_value = an_array[i];
-            int result = i;
-            cout<<desired_value<<" Found at position "<<i<<endl;
-            //return result;
-        }
-    }
-}
 
 int main(){
     int my_array[10];
@@ -91,7 +41,7 @@ int main(){
     }
 
     //Tests that functions work.
-    cout<<endl<<"Bool find result:  "<< find_inarray(10, my_array, 10) <<endl;
+    cout<<endl<<"Bool find result for 10 (should be True/1):  "<< find_inarray(10, my_array, 10) <<endl;
     cout<<"Integer find result:  "<< int_find_inarray(50, my_array, 10) <<endl;
 
 
@@ -114,6 +64,26 @@ int main(){
         cout<<new_array[i]<<" ";
     }
 
+    //Some tests using couts.
+    cout<<endl<<endl<<"Print outs showing outputs of various functions: "<<endl;
+    cout<<endl<<"Binary search result for 50 on this array[size "<<array_size<<"] (should be false / 0): "<<endl;
+    cout<<binary_find(50, new_array, array_size);
+    cout<<endl<<"Binary search result for 36 on this array[size "<<array_size<<"] (should be true / 1): "<<endl;
+    cout<<binary_find(36, new_array, array_size);
+    cout<<endl<<"Binary search result for middle value of 100 on this array[size "<<array_size<<"] (should be true / 1): "<<endl;
+    cout<<binary_find(100, new_array, array_size);
+
+    //A loop to test the binary search yourself.
+    int user_value =1;
+    while(user_value != 0){
+        for(int i=0; i<array_size; i++){
+        cout<<new_array[i]<<" ";
+        }
+        cout<<endl<<endl<<"Enter 0 to EXIT";
+        cout<<endl<<"What number would you like to search for in the above array? ";
+        cin>>user_value;
+        cout<<endl<<"Binary search result of your number: "<<binary_find(user_value, new_array, array_size)<<endl;
+    }
 
     return 0;
 }
