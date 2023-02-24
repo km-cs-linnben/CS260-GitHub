@@ -5,6 +5,8 @@ Assignment 6
 
 */
 
+//Why does git put everything under assignmnet 1 branch when I push this ************************
+
 #include <iostream>
 
 using namespace std;
@@ -16,22 +18,26 @@ struct TreeNode {
 };
 
 
-TreeNode tree_Insert(int a_value, TreeNode *topNode){
-    TreeNode newNode{a_value, nullptr, nullptr};
+TreeNode *tree_Insert(int a_value, TreeNode *topNode){
+
     if(a_value <= topNode->value && topNode->left != nullptr){
-        cout<<"left loop "<<a_value<<endl;
+        cout<<"left loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
         tree_Insert(a_value, topNode->left);
+
     }else if(a_value > topNode->value && topNode->right != nullptr){
-        cout<<"right loop "<<a_value<<endl;
+        cout<<"right loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
         tree_Insert(a_value, topNode->right);
-    }else{
-        if(a_value <= topNode->value){
-            topNode->left = &newNode;
-            cout<<"left "<<a_value<<endl;
+
+    }else{    //Doesnt create a new node until final left/right decision
+        TreeNode *newNode = new TreeNode{a_value, nullptr, nullptr};
+        if(a_value < topNode->value){
+            cout<<"left "<<a_value<<"    comp value-> "<<topNode->value<<endl;
+            topNode->left = newNode;
             return newNode;
+
         }else{
-            topNode->right = &newNode;
-            cout<<"right "<<a_value<<endl;
+            topNode->right = newNode;
+            cout<<"right "<<a_value<<"    comp value-> "<<topNode->value<<endl;
             return newNode;
         }
     }
@@ -40,16 +46,21 @@ TreeNode tree_Insert(int a_value, TreeNode *topNode){
 // Me trying to do cool recursion stuff.
 // Return a pointer to the node holding the value being searched for. Returns nullptr if value not found.
 TreeNode* treeSearch(int a_value, TreeNode *topNode){
-    int branchLvl = 1;
+    static int branchLvl = 0;
+    branchLvl++;
     if (topNode->value == a_value){
         cout<<a_value<<" found at level "<<branchLvl<<endl;
+        branchLvl = 0;
         return topNode;
     }else if(a_value < topNode->value && topNode->left != nullptr){
+        //branchLvl++;
         treeSearch(a_value, topNode->left);
     }else if(a_value > topNode->value && topNode->right != nullptr){
+        //branchLvl++;
         treeSearch(a_value, topNode->right);
     }else{
-        cout<<a_value<<" not found"<<endl;
+        cout<<a_value<<" not found."<<endl;
+        cout<<"Searched "<<branchLvl<<" branches."<<endl;
         return nullptr;
     }
 
@@ -113,14 +124,14 @@ int main(){
     //cout<<aBinTree.value<<endl;
 
     tree_Insert(10, treePtr);
-    cout<<(*treePtr->left).value<<endl;
+    //cout<<(*treePtr->left).value<<endl;
     tree_Insert(7, treePtr);
-    cout<<(*(*treePtr->left).left).value<<endl;
+    //cout<<(*(*treePtr->left).left).value<<endl;
     tree_Insert(11, treePtr);
-    cout<<(*(*treePtr->left).right).value<<endl;
+    //cout<<(*(*treePtr->left).right).value<<endl;
     tree_Insert(30, treePtr);
-    cout<<(*treePtr->right).value<<endl;
-    cout<<(*treePtr->left).value<<endl;
+    //cout<<(*treePtr->right).value<<endl;
+    //cout<<(*treePtr->left).value<<endl;
     tree_Insert(25, treePtr);
     tree_Insert(35, treePtr);
     tree_Insert(5, treePtr);
@@ -130,7 +141,9 @@ int main(){
     tree_Insert(4, treePtr);
     tree_Insert(6, treePtr);
 
-    //cout<<treePtr->value<<endl;
+    treeSearch(40, treePtr);
+    treeSearch(11, treePtr);
+    treeSearch(6, treePtr);
     
 
     return 0;
