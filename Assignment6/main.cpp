@@ -3,6 +3,9 @@ Ken Michna
 CS260 
 Assignment 6
 
+Tree Insert Works
+Tree Search Works
+
 */
 
 //Why does git put everything under assignmnet 1 branch when I push this ************************
@@ -124,14 +127,9 @@ int main(){
     //cout<<aBinTree.value<<endl;
 
     tree_Insert(10, treePtr);
-    //cout<<(*treePtr->left).value<<endl;
     tree_Insert(7, treePtr);
-    //cout<<(*(*treePtr->left).left).value<<endl;
     tree_Insert(11, treePtr);
-    //cout<<(*(*treePtr->left).right).value<<endl;
     tree_Insert(30, treePtr);
-    //cout<<(*treePtr->right).value<<endl;
-    //cout<<(*treePtr->left).value<<endl;
     tree_Insert(25, treePtr);
     tree_Insert(35, treePtr);
     tree_Insert(5, treePtr);
@@ -141,9 +139,9 @@ int main(){
     tree_Insert(4, treePtr);
     tree_Insert(6, treePtr);
 
-    treeSearch(40, treePtr);
-    treeSearch(11, treePtr);
-    treeSearch(6, treePtr);
+    // treeSearch(40, treePtr);
+    // treeSearch(11, treePtr);
+    // treeSearch(6, treePtr);
     
 
     return 0;
