@@ -4,7 +4,7 @@ CS260
 Assignment 6
 
 Tree Insert Works
-Tree Search Works
+Tree Search Worksgit
 
 */
 
@@ -24,23 +24,23 @@ struct TreeNode {
 TreeNode *tree_Insert(int a_value, TreeNode *topNode){
 
     if(a_value <= topNode->value && topNode->left != nullptr){
-        cout<<"left loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
+        //cout<<"left loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
         tree_Insert(a_value, topNode->left);
 
     }else if(a_value > topNode->value && topNode->right != nullptr){
-        cout<<"right loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
+        //cout<<"right loop "<<a_value<<"    comp value-> "<<topNode->value<<endl;
         tree_Insert(a_value, topNode->right);
 
     }else{    //Doesnt create a new node until final left/right decision
         TreeNode *newNode = new TreeNode{a_value, nullptr, nullptr};
         if(a_value < topNode->value){
-            cout<<"left "<<a_value<<"    comp value-> "<<topNode->value<<endl;
+            //cout<<"left "<<a_value<<"    comp value-> "<<topNode->value<<endl;
             topNode->left = newNode;
             return newNode;
 
         }else{
             topNode->right = newNode;
-            cout<<"right "<<a_value<<"    comp value-> "<<topNode->value<<endl;
+            //cout<<"right "<<a_value<<"    comp value-> "<<topNode->value<<endl;
             return newNode;
         }
     }
@@ -84,15 +84,41 @@ void inOrderTraversal(TreeNode *current) {
 }
 
 // Oh my goodness is this MORE recursion?? whoa =O
+// NEED TO FIX at 7 it stops because right is a nullptr
 TreeNode *getPriorNode(int a_value, TreeNode *topNode){
-    if((*topNode->right).value == a_value || (*topNode->left).value == a_value){
+    if(topNode->right == nullptr || topNode->left == nullptr){
+
+        cout<<"null"<<endl;
+        if(topNode->left == nullptr){
+            if((*topNode->right).value == a_value){
+                cout<<"node returned "<<topNode->value<<endl;
+                return topNode;
+            cout<<"null- going right"<<endl;
+            getPriorNode(a_value, topNode->right);
+            }
+
+        }else if (topNode->right == nullptr){
+            if((*topNode->left).value == a_value){
+                cout<<"node returned "<<topNode->value<<endl;
+                return topNode;
+            }
+            cout<<"null- going left"<<(*topNode->left).value<<endl;
+            getPriorNode(a_value, topNode->left);
+        }
+
+    }else if(a_value == (*topNode->left).value || a_value == (*topNode->right).value){
+        cout<<topNode->value<<" value-> "<<a_value<<endl;
         return topNode;
     }else if(a_value > topNode->value){
+        cout<<"right"<<endl;
         getPriorNode(a_value, topNode->right);
-    }else{
+    }else if(a_value < topNode->value){
+        cout<<"left"<<endl;
         getPriorNode(a_value, topNode->left);
+    }else{
+        cout<<"else "<<topNode->value<<endl;
+        return nullptr;
     }
-
 }
 
 void removeValue(int a_value, TreeNode *topNode){
@@ -143,7 +169,16 @@ int main(){
     // treeSearch(11, treePtr);
     // treeSearch(6, treePtr);
     
-
+    cout<<getPriorNode(23, treePtr)<<endl;
+    cout<<getPriorNode(40, treePtr)<<endl;
+    cout<<getPriorNode(11, treePtr)<<endl;
+    cout<<getPriorNode(6, treePtr)<<endl;
+    cout<<getPriorNode(4, treePtr)<<endl;
+    cout<<getPriorNode(27, treePtr)<<endl;
+    cout<<getPriorNode(5, treePtr)<<endl;
+    cout<<getPriorNode(7, treePtr)<<endl;
+    cout<<getPriorNode(30, treePtr)<<endl;
+    cout<<getPriorNode(10, treePtr)<<endl;
     return 0;
 }
 
