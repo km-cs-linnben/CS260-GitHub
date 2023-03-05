@@ -12,8 +12,8 @@ class HashTable {
         HashTable(int initial_size);
 
         bool insert(long long phoneNumber);
-        string search(string value);
-        bool remove(string value);
+        int search(long long phoneNumber);
+        bool remove(long long phoneNumber);
 
         int hash_it(long long phoneNumber);
 
@@ -23,6 +23,7 @@ class HashTable {
 
         int getInsertCount();
         int getCollisionCount();
+        void resetCollisions();
         vector<string> table;
 
     private:
@@ -30,7 +31,7 @@ class HashTable {
         int capacity;
 
         int insertCount;
-        int collisionCount;
+        int collisionCount =0;
 };
 
 // class ChainHashTable {

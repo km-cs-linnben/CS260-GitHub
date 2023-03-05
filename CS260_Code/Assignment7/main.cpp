@@ -69,14 +69,22 @@ main(){
         cout<<testnum[i]<<endl;
     }
 
+    cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
     for(int i=0; i<20; ++i){
         testTbl.insert(testnum[i]);
     }
+
 
     cout<<"Hash Table After Inserts: "<<endl;
     for(int i=0; i<20; ++i){
         cout<<testTbl.table.at(i)<<endl;
     }
 
+    cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
 
+    cout<<testTbl.table.at(0)<<endl;
+
+    //testTbl.search(testnum[0]);
+
+    //testTbl.resetCollisions();
 }

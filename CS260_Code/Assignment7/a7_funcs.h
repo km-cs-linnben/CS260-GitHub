@@ -51,6 +51,8 @@ bool HashTable::insert(long long phoneNumber){
     return true;
 }
 
+int HashTable::getCollisionCount(){return collisionCount;}
+
 // bool ChainHashTable::chainInsert(long long phoneNumber){
 //     int index = hash_it(phoneNumber);
 //     int col = 0;
@@ -65,3 +67,12 @@ bool HashTable::insert(long long phoneNumber){
 // string search(string value){}
 
 // bool remove(string value){}
+// int HashTable::search(long long phoneNumber){
+//     int index = hash_it(phoneNumber);
+//     if (table.at(index) != ""){
+//         cout<<phoneNumber<<" found at index: "<<index<<endl;
+//         return index;
+//     }
+//     cout<<phoneNumber<<" not found"<<endl;
+//     return 0;
+// }
