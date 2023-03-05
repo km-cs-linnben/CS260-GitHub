@@ -22,12 +22,16 @@ Chain
 #include <random>
 #include <string>
 #include <vector>
+
 #include "hash_class.h"
+#include "a7_funcs.h"
 
 using namespace std;
 
+// Generates a list (vector, but you taught me Python first so it will always be a list to me)
+// of however many random phone numbers user desires.
 vector<long long> phoneNumGen(int num2gen){
-    //Random number gen stuff from stack overflow
+    //Random number gen stuff from stack overflow.
     random_device rd;
     mt19937 rng(rd());
     uniform_int_distribution<int> uni(1,9);
@@ -37,6 +41,9 @@ vector<long long> phoneNumGen(int num2gen){
     vector<long long> numberList;
     numberList.reserve(num2gen);
 
+    // For as many times chosen by user (j), generate a random 10 digit number as a string.
+    // Then convert string to a long long and add it to a list of phone numbers. Return
+    // the list of phone numbers.
     for(int j=0; j<num2gen; j++){
         for(int i=0; i<10; i++){
             numStr.append(to_string(uni(rng)));
@@ -49,11 +56,27 @@ vector<long long> phoneNumGen(int num2gen){
     return numberList;
 }
 
+
 main(){
-    vector<long long> testnum = phoneNumGen(6);
-    cout<<testnum[0]<<endl;
-    cout<<testnum[1]<<endl;
-    cout<<testnum[2]<<endl;
+    vector<long long> testnum = phoneNumGen(20);
+    HashTable testTbl(20);
+
+    // cout<<testnum[0]<<endl;
+    // cout<<testnum[1]<<endl;
+    // cout<<testnum[5]<<endl;
+    //int testhash = testTbl.hash_it(testnum[0]);
+    for(int i=0; i<20; ++i){
+        cout<<testnum[i]<<endl;
+    }
+
+    for(int i=0; i<20; ++i){
+        testTbl.insert(testnum[i]);
+    }
+
+    cout<<"Hash Table After Inserts: "<<endl;
+    for(int i=0; i<20; ++i){
+        cout<<testTbl.table.at(i)<<endl;
+    }
 
 
 }
