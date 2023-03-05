@@ -9,9 +9,9 @@ My hash table contains the customer information and pretend vehicle repair histo
 I am using the phone number as the key, since phone numbers are more unique than names.
 
 Phone Number Gen Works
+Insert Works
 
 TODO:
-Insert
 Search
 Remove
 Chain
