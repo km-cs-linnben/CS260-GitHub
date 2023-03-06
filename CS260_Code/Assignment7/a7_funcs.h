@@ -38,7 +38,7 @@ HashTable::HashTable(int isize){
 // Hash Function
 int HashTable::hash_it(long long phoneNumber){
     int index = (phoneNumber / 100000000) % getSize();
-    cout<<index<<endl;
+    //cout<<index<<endl;
     return index;
 }
 
@@ -67,12 +67,12 @@ int HashTable::getCollisionCount(){return collisionCount;}
 // string search(string value){}
 
 // bool remove(string value){}
-// int HashTable::search(long long phoneNumber){
-//     int index = hash_it(phoneNumber);
-//     if (table.at(index) != ""){
-//         cout<<phoneNumber<<" found at index: "<<index<<endl;
-//         return index;
-//     }
-//     cout<<phoneNumber<<" not found"<<endl;
-//     return 0;
-// }
+int HashTable::search(long long phoneNumber){
+    int index = hash_it(phoneNumber);
+    if (table.at(index) != "" && table.at(index) == to_string(phoneNumber)){
+        cout<<phoneNumber<<" found at index: "<<index<<endl;
+        return index;
+    }
+    cout<<phoneNumber<<" not found"<<endl;
+    return NULL;
+}

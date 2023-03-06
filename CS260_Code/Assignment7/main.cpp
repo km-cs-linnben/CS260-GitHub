@@ -82,9 +82,9 @@ main(){
 
     cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
 
-    cout<<testTbl.table.at(0)<<endl;
+    //cout<<testTbl.table.at(8)<<endl;
 
-    //testTbl.search(testnum[0]);
+    cout<<testTbl.search(testnum[0])<<endl;
 
     //testTbl.resetCollisions();
 }
