@@ -77,14 +77,20 @@ main(){
 
     cout<<"Hash Table After Inserts: "<<endl;
     for(int i=0; i<20; ++i){
-        cout<<testTbl.table.at(i)<<endl;
+        cout<<i<<": "<<testTbl.table.at(i)<<endl;
     }
 
     cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
 
+    cout<<testTbl.remove(testnum[13])<<endl;
+
+    cout<<"Hash Table After Removal: "<<endl;
+    for(int i=0; i<20; ++i){
+        cout<<i<<": "<<testTbl.table.at(i)<<endl;
+    }
     //cout<<testTbl.table.at(8)<<endl;
 
-    cout<<testTbl.search(testnum[0])<<endl;
+    //cout<<testTbl.search(testnum[0])<<endl;
 
     //testTbl.resetCollisions();
 }

@@ -66,7 +66,16 @@ int HashTable::getCollisionCount(){return collisionCount;}
 
 // string search(string value){}
 
-// bool remove(string value){}
+bool HashTable::remove(long long phoneNumber){
+    int index = search(phoneNumber);
+    if(index != NULL && table.at(index) == to_string(phoneNumber)){
+        table.at(index) = "";
+        cout<<phoneNumber<<" removed."<<endl;
+        return true;
+    }
+    return false;
+}
+
 int HashTable::search(long long phoneNumber){
     int index = hash_it(phoneNumber);
     if (table.at(index) != "" && table.at(index) == to_string(phoneNumber)){
