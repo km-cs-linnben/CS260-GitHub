@@ -34,30 +34,30 @@ class HashTable {
         int collisionCount =0;
 };
 
-// class ChainHashTable {
-//     public:
-//         ChainHashTable();
-//         ChainHashTable(int initial_size);
+class ChainHashTable {
+    public:
+        ChainHashTable();
+        ChainHashTable(int initial_size);
 
-//         bool insert(long long phoneNumber);
-//         bool chainInsert(long long phoneNumber);
-//         string search(string value);
-//         bool remove(string value);
+        bool chainInsert(long long phoneNumber);
+        string chainsearch(string value);
+        bool chainRemove(string value);
 
-//         int hash_it(long long phoneNumber);
+        int chain_hash_it(long long phoneNumber);
 
-//         int getCapacity();
-//         int getSize();
-//         float getFullness();
+        // int getCapacity();
+        int chainGetSize();
+        // float getFullness();
 
-//         int getInsertCount();
-//         int getCollisionCount();
+        // int getInsertCount();
+        // int getCollisionCount();
 
-//     private:
-//         vector<vector<string>> chainTable;
-//         int size;
-//         int capacity;
+        vector<vector<string>> chainTable;
 
-//         int insertCount;
-//         int collisionCount;
-// };
+    private:
+        int chainSize;
+        int chainCapacity;
+
+        int chainInsertCount;
+        int chainCollisionCount =0;
+};

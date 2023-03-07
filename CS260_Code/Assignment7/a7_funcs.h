@@ -53,18 +53,6 @@ bool HashTable::insert(long long phoneNumber){
 
 int HashTable::getCollisionCount(){return collisionCount;}
 
-// bool ChainHashTable::chainInsert(long long phoneNumber){
-//     int index = hash_it(phoneNumber);
-//     int col = 0;
-//     while(chainTable[index][col] != ""){
-//         col++;
-//     }
-//     chainTable[index][col] = to_string(phoneNumber);
-//     col=0;
-//     return true;
-// }
-
-// string search(string value){}
 
 bool HashTable::remove(long long phoneNumber){
     int index = search(phoneNumber);
@@ -84,4 +72,34 @@ int HashTable::search(long long phoneNumber){
     }
     cout<<phoneNumber<<" not found"<<endl;
     return NULL;
+}
+
+// CHAIN TABLE BELOW HERE
+
+ChainHashTable::ChainHashTable() : ChainHashTable(20){}
+
+ChainHashTable::ChainHashTable(int isize){
+    chainTable.resize(isize);
+    chainSize = isize;
+    fill(chainTable.begin(),chainTable.end(), vector<string>(10,""));
+    cout<<"done"<<endl;
+}
+
+int ChainHashTable::chainGetSize() {return chainSize;}
+
+bool ChainHashTable::chainInsert(long long phoneNumber){
+    int index = chain_hash_it(phoneNumber);
+    int col = 0;
+    while(chainTable[index][col] != ""){
+        //cout<<index<<" "<<col<<endl;
+        ++col;
+    }
+    cout<<"STORED AT "<<index<<" "<<col<<endl;
+    chainTable[index][col] = to_string(phoneNumber);
+    return true;
+}
+
+int ChainHashTable::chain_hash_it(long long phoneNumber){
+    int index = (phoneNumber / 100000000) % chainGetSize();
+    return index;    
 }

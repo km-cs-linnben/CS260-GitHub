@@ -9,12 +9,14 @@ My hash table contains the customer information and pretend vehicle repair histo
 I am using the phone number as the key, since phone numbers are more unique than names.
 
 Phone Number Gen Works
-Insert Works
+Insert works
+Search works
+Remove works
+
+Chain creation\insert\hash works
 
 TODO:
-Search
-Remove
-Chain
+Chain search\remove
 
 */
 
@@ -60,37 +62,62 @@ vector<long long> phoneNumGen(int num2gen){
 main(){
     vector<long long> testnum = phoneNumGen(20);
     HashTable testTbl(20);
-
-    // cout<<testnum[0]<<endl;
-    // cout<<testnum[1]<<endl;
-    // cout<<testnum[5]<<endl;
-    //int testhash = testTbl.hash_it(testnum[0]);
+    ChainHashTable testChain(20);
     for(int i=0; i<20; ++i){
         cout<<testnum[i]<<endl;
     }
 
     cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
-    for(int i=0; i<20; ++i){
-        testTbl.insert(testnum[i]);
+
+    // for(int i=0; i<20; ++i){
+    //     testTbl.insert(testnum[i]);
+    // }
+    // cout<<"Hash Table After Inserts: "<<endl;
+    // for(int i=0; i<20; ++i){
+    //     cout<<i<<": "<<testTbl.table.at(i)<<endl;
+    // }
+
+    // cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
+
+    // cout<<testTbl.remove(testnum[13])<<endl;
+
+    // cout<<"Hash Table After Removal: "<<endl;
+    // for(int i=0; i<20; ++i){
+    //     cout<<i<<": "<<testTbl.table.at(i)<<endl;
+    // }
+
+    //CHAIN STUFF
+
+    cout<<"Chain Table capacity"<<testChain.chainTable.capacity()<<endl;
+    // cout<<testChain.chainTable[0][1]<<endl;
+    // cout<<testChain.chainTable[0][2]<<endl;
+    // cout<<testChain.chainTable[0][3]<<endl;
+
+    cout<<endl<<"Blank Chain Table: "<<endl;
+    for(int i=0; i<testChain.chainTable.capacity(); i++){
+        //cout<<"1test";
+        for(int j=0; j<10; j++){
+            //cout<<"test";
+            cout<<testChain.chainTable[i][j]<<"\t";
+        }
+    cout<<endl;
     }
 
-
-    cout<<"Hash Table After Inserts: "<<endl;
     for(int i=0; i<20; ++i){
-        cout<<i<<": "<<testTbl.table.at(i)<<endl;
+        testChain.chainInsert(testnum[i]);
+    };
+
+    cout<<"GET SIZE: "<<testChain.chainGetSize()<<endl;
+
+    cout<<"HASH "<<testChain.chain_hash_it(testnum[1])<<endl;
+
+    cout<<"Chain Table after inserts: "<<endl;
+    for(int i=0; i<testChain.chainTable.capacity(); i++){
+        for(int j=0; j<10; j++){
+            //needs way better formatting. A project for another day.
+            cout<<"\t"<<j<<": "<<testChain.chainTable[i][j];
+        }
+    cout<<endl;
     }
 
-    cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
-
-    cout<<testTbl.remove(testnum[13])<<endl;
-
-    cout<<"Hash Table After Removal: "<<endl;
-    for(int i=0; i<20; ++i){
-        cout<<i<<": "<<testTbl.table.at(i)<<endl;
-    }
-    //cout<<testTbl.table.at(8)<<endl;
-
-    //cout<<testTbl.search(testnum[0])<<endl;
-
-    //testTbl.resetCollisions();
 }
