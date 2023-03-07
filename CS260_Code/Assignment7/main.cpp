@@ -113,6 +113,7 @@ main(){
 
     cout<<"Chain Table after inserts: "<<endl;
     for(int i=0; i<testChain.chainTable.capacity(); i++){
+        cout<<"ROW "<<i;
         for(int j=0; j<10; j++){
             //needs way better formatting. A project for another day.
             cout<<"\t"<<j<<": "<<testChain.chainTable[i][j];
@@ -120,4 +121,6 @@ main(){
     cout<<endl;
     }
 
+    cout<<"SEARCH Results for "<<testnum[13]<<" : ";
+    testChain.chainSearch(testnum[13]);
 }

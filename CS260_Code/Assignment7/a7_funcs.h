@@ -103,3 +103,18 @@ int ChainHashTable::chain_hash_it(long long phoneNumber){
     int index = (phoneNumber / 100000000) % chainGetSize();
     return index;    
 }
+
+int ChainHashTable::chainSearch(long long phoneNumber){
+    int index = chain_hash_it(phoneNumber);
+    int col = 0;
+    while(chainTable[index][col] != ""){
+        if(chainTable[index][col] != to_string(phoneNumber)){
+            ++col;
+        }else if(chainTable[index][col] == to_string(phoneNumber)){
+            cout<<phoneNumber<<" found at row: "<<index<<" col: "<<col<<endl;
+            return index;
+        }
+    }
+    cout<<phoneNumber<<" not found"<<endl;
+    return NULL;
+}
