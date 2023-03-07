@@ -40,17 +40,17 @@ class ChainHashTable {
         ChainHashTable(int initial_size);
 
         bool chainInsert(long long phoneNumber);
-        int chainSearch(long long phoneNumber);
+        bool chainSearch(long long phoneNumber);
         bool chainRemove(long long phoneNumber);
 
         int chain_hash_it(long long phoneNumber);
 
-        // int getCapacity();
+        int getCollisions();
         int chainGetSize();
-        // float getFullness();
 
+        // int getCapacity();
+        // float getFullness();
         // int getInsertCount();
-        // int getCollisionCount();
 
         vector<vector<string>> chainTable;
 

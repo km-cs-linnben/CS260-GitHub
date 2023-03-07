@@ -7,6 +7,8 @@ using namespace std;
 
 // Next 3 functions taken from Joseph. Simple enough that redesign doesnt
 // seem needed. After reading online I would have done getFullness the same way.
+// Also I am not sure what the difference between size and capacity is when we have another
+// function already to check fullness? Would like feedback here if you see it.
 
 //Helper function to fetch current capacity
 int HashTable::getCapacity() {return capacity;}
@@ -85,16 +87,18 @@ ChainHashTable::ChainHashTable(int isize){
     cout<<"done"<<endl;
 }
 
+
 int ChainHashTable::chainGetSize() {return chainSize;}
+
 
 bool ChainHashTable::chainInsert(long long phoneNumber){
     int index = chain_hash_it(phoneNumber);
     int col = 0;
     while(chainTable[index][col] != ""){
-        //cout<<index<<" "<<col<<endl;
         ++col;
+        ++chainCollisionCount;
     }
-    cout<<"STORED AT "<<index<<" "<<col<<endl;
+    cout<<phoneNumber<<" STORED AT ROW "<<index<<" COL "<<col<<endl;
     chainTable[index][col] = to_string(phoneNumber);
     return true;
 }
@@ -104,7 +108,8 @@ int ChainHashTable::chain_hash_it(long long phoneNumber){
     return index;    
 }
 
-int ChainHashTable::chainSearch(long long phoneNumber){
+
+bool ChainHashTable::chainSearch(long long phoneNumber){
     int index = chain_hash_it(phoneNumber);
     int col = 0;
     while(chainTable[index][col] != ""){
@@ -112,9 +117,28 @@ int ChainHashTable::chainSearch(long long phoneNumber){
             ++col;
         }else if(chainTable[index][col] == to_string(phoneNumber)){
             cout<<phoneNumber<<" found at row: "<<index<<" col: "<<col<<endl;
-            return index;
+            return true;
         }
     }
     cout<<phoneNumber<<" not found"<<endl;
-    return NULL;
+    return false;
 }
+
+bool ChainHashTable::chainRemove(long long phoneNumber){
+    bool found = chainSearch(phoneNumber);
+    int col = 0;
+    if(found == true){
+        int index = chain_hash_it(phoneNumber);
+        while(chainTable[index][col] != to_string(phoneNumber)){
+            ++col;
+        }
+        chainTable[index][col] = "";
+        cout<<phoneNumber<<" removed from table."<<endl;
+        return true;
+    }
+    cout<<"Phone number "<<phoneNumber<<" does not exist in table. No removal performed"<<endl;
+    return false;
+
+}
+
+int ChainHashTable::getCollisions(){return chainCollisionCount;}

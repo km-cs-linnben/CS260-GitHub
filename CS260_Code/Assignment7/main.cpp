@@ -13,10 +13,7 @@ Insert works
 Search works
 Remove works
 
-Chain creation\insert\hash works
-
-TODO:
-Chain search\remove
+Chain creation\insert\hash\remove works
 
 */
 
@@ -67,31 +64,34 @@ main(){
         cout<<testnum[i]<<endl;
     }
 
-    cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
+    cout<<endl<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
 
-    // for(int i=0; i<20; ++i){
-    //     testTbl.insert(testnum[i]);
-    // }
-    // cout<<"Hash Table After Inserts: "<<endl;
-    // for(int i=0; i<20; ++i){
-    //     cout<<i<<": "<<testTbl.table.at(i)<<endl;
-    // }
+    for(int i=0; i<20; ++i){
+        testTbl.insert(testnum[i]);
+    }
+    cout<<"Hash Table After Inserts: "<<endl;
+    for(int i=0; i<20; ++i){
+        cout<<i<<": "<<testTbl.table.at(i)<<endl;
+    }
 
-    // cout<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
+    cout<<endl<<"Collisions: "<<testTbl.getCollisionCount()<<endl;
 
-    // cout<<testTbl.remove(testnum[13])<<endl;
+    cout<<testTbl.remove(testnum[13])<<endl;
 
-    // cout<<"Hash Table After Removal: "<<endl;
-    // for(int i=0; i<20; ++i){
-    //     cout<<i<<": "<<testTbl.table.at(i)<<endl;
-    // }
+    cout<<"Hash Table After Removal: "<<endl;
+    for(int i=0; i<20; ++i){
+        cout<<i<<": "<<testTbl.table.at(i)<<endl;
+    }
+
+    cout<<endl<<"SEARCH FUNCTION RESULTS: "<<endl;
+    cout<<testTbl.search(testnum[13]);
+    cout<<testTbl.search(testnum[1]);
+    cout<<testTbl.search(testnum[19]);
 
     //CHAIN STUFF
 
-    cout<<"Chain Table capacity"<<testChain.chainTable.capacity()<<endl;
-    // cout<<testChain.chainTable[0][1]<<endl;
-    // cout<<testChain.chainTable[0][2]<<endl;
-    // cout<<testChain.chainTable[0][3]<<endl;
+    cout<<endl<<"Chain Table capacity: "<<testChain.chainTable.capacity()<<endl;
+    cout<<endl<<"";
 
     cout<<endl<<"Blank Chain Table: "<<endl;
     for(int i=0; i<testChain.chainTable.capacity(); i++){
@@ -107,10 +107,6 @@ main(){
         testChain.chainInsert(testnum[i]);
     };
 
-    cout<<"GET SIZE: "<<testChain.chainGetSize()<<endl;
-
-    cout<<"HASH "<<testChain.chain_hash_it(testnum[1])<<endl;
-
     cout<<"Chain Table after inserts: "<<endl;
     for(int i=0; i<testChain.chainTable.capacity(); i++){
         cout<<"ROW "<<i;
@@ -121,6 +117,30 @@ main(){
     cout<<endl;
     }
 
-    cout<<"SEARCH Results for "<<testnum[13]<<" : ";
+    cout<<endl<<"Chain Collision Count: "<<testChain.getCollisions()<<endl;
+
+    cout<<endl<<"SEARCH Results for "<<testnum[13]<<" : ";
     testChain.chainSearch(testnum[13]);
+    cout<<endl<<"SEARCH Results for "<<testnum[1]<<" : ";
+    testChain.chainSearch(testnum[1]);
+    cout<<endl<<"SEARCH Results for "<<testnum[11]<<" : ";
+    testChain.chainSearch(testnum[11]);
+    cout<<endl<<"SEARCH Results for 541-876-5309 ";
+    testChain.chainSearch(5418765309);
+
+    cout<<endl<<"A couple REMOVALS and the Results: "<<endl;
+    testChain.chainRemove(testnum[13]);
+    testChain.chainRemove(testnum[2]);
+    testChain.chainRemove(testnum[18]);
+    testChain.chainRemove(5418765309);
+
+    cout<<endl<<"Chain Table after removals: "<<endl;
+    for(int i=0; i<testChain.chainTable.capacity(); i++){
+        cout<<"ROW "<<i;
+        for(int j=0; j<10; j++){
+            //needs way better formatting. A project for another day.
+            cout<<"\t"<<j<<": "<<testChain.chainTable[i][j];
+        }
+    cout<<endl;
+    }
 }
