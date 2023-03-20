@@ -24,8 +24,11 @@ class Graph {
 
         vector<SolarSystemNode> systems_in_graph;
         vector<HyperLane> lanes_in_graph;
+        // Had to add a string type visited list made of the names of the systems because find() would not work with a vector of SolarSystemNodes
         vector<string> visited;
+        vector<SolarSystemNode> visitedNodes;
         vector<SolarSystemNode> sysqueue;
         vector<SolarSystemNode> minSpanTree;
         vector<string> minSpanNames;
+        vector<HyperLane> lanesVisistedInOrder;
 };

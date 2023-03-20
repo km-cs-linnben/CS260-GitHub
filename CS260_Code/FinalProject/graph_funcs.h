@@ -35,7 +35,7 @@ bool Graph::addEdge(string source, string destination, int cost){
         systems_in_graph[sIndex].connectedSystems.push_back(systems_in_graph[dIndex]);
         systems_in_graph[dIndex].connectedSystems.push_back(systems_in_graph[sIndex]);
         systems_in_graph[sIndex].connectedLanes.push_back(newEdge);
-        systems_in_graph[dIndex].connectedLanes.push_back(newEdge);
+        //systems_in_graph[dIndex].connectedLanes.push_back(newEdge);
         cout<<"LANE ADDED"<<endl;
         return true;
         }
@@ -109,48 +109,76 @@ int Graph::nodeSearch(string sysname){
     return 42;
 }
 
+// Good luck reading this
+// Finds shortest path that touches all nodes
 void Graph::shortestPath(SolarSystemNode system){
     //Start with first node in graph as source
     systems_in_graph[0].distFromSource = 0;
     static SolarSystemNode closestNode;
-    cout<<endl<<"Close Node: "<<closestNode.name<<endl;
+    cout<<endl<<"Beg Func Closest Node: "<<closestNode.name<<endl;
     static int defaultDist = 1000;
     cout<<endl<<"DEFAULT DIST: "<<defaultDist<<endl;
+    HyperLane lane2Closest;
 
     //For first loop only
     if(defaultDist == 1000){
+        visited.push_back(systems_in_graph[0].name);
+        visitedNodes.push_back(systems_in_graph[0]);
         cout<<endl<<"D loop"<<endl;
+
+        // Go through sources connected lanes
         for(int i = 0; i < systems_in_graph[0].connectedLanes.capacity(); ++i){
-            //Update distance from source variable for each system adjacent to source only.
+            //Update distance from source for only the systems that are adjacent to source.
             systems_in_graph[0].connectedLanes[i].destination->distFromSource = systems_in_graph[0].connectedLanes[i].lightyears;
             cout<<systems_in_graph[0].connectedLanes[i].destination->name<<" Distance from source: "<<systems_in_graph[0].connectedLanes[i].destination->distFromSource<<endl;
-            // If destination system distance is less than 1000 make it the new default distance and make it the closest node.
+
+            // If destination system distance is less than default distance value, make it the new default distance and make it the closest node.
             if(systems_in_graph[0].connectedLanes[i].destination->distFromSource < defaultDist){
                 closestNode = (*systems_in_graph[0].connectedLanes[i].destination);
                 cout<<"New closest: "<<closestNode.name<<endl;
                 defaultDist = closestNode.distFromSource;
+                lane2Closest = systems_in_graph[0].connectedLanes[i];
+            }
+        }
+        lanesVisistedInOrder.push_back(lane2Closest);
+    }
+
+    // Look through list of systems in entire graph and find system with shortest distance from current node
+    // Do not save that system if it has been visited, move on to next closest instead.
+    for(int i = 0; i < lanes_in_graph.size(); ++i){
+        if(lanes_in_graph[i].lightyears < defaultDist && find(visited.begin(), visited.end(), (*lanes_in_graph[i].destination).name) == visited.end()){
+            if(find(visited.begin(), visited.end(), (*lanes_in_graph[i].origin).name) != visited.end()){
+                closestNode = (*lanes_in_graph[i].destination);
+                defaultDist = lanes_in_graph[i].lightyears;
+                lane2Closest = lanes_in_graph[i];
             }
         }
     }
 
-    // Look through list of systems in enitre graph and find system with shortest distance from current node
-    for(int i = 1; i < systems_in_graph.size(); ++i){
-        if(systems_in_graph[i].distFromSource < defaultDist && find(visited.begin(), visited.end(), systems_in_graph[i].name) == visited.end()){
-            closestNode = systems_in_graph[i];
-            defaultDist = closestNode.distFromSource;
-        }
-    }
-    cout<<"Closest after graph search: "<<closestNode.name<<endl;
+    // Get hyperlane to new closest node, add to visited hyperlane list for later printout
+    // for(int i = 0; i < (*visitedNodes.end()).connectedLanes.capacity(); ++i){
+    //     if((*visitedNodes.end()).connectedLanes[i].destination == &closestNode){
+    //         lane2Closest = (*visitedNodes.end()).connectedLanes[i];
+    //     }
+    // }
+    // lanesVisistedInOrder.push_back(lane2Closest);
+
+    cout<<endl<<"Closest after graph search: "<<closestNode.name<<endl;
     cout<<"Closest Node distance from Source: "<<closestNode.distFromSource<<endl;
+
     //Mark the current cloest node as visited
     visited.push_back(closestNode.name);
+    visitedNodes.push_back(closestNode);
+    lanesVisistedInOrder.push_back(lane2Closest);
 
     // Go through each connected hyperlane of the newly found closest node, update each lane's destination system with its distance from the source.
     // Default distance is 1000 instead of infinity for this program. Updated distance is the distance in lightyears of the hyperlane plus the closest
     // node's distance from source.
-    for(int i = 0; i < closestNode.connectedLanes.capacity(); ++i){
+    for(int i = 0; i < closestNode.connectedLanes.size(); ++i){
         closestNode.connectedLanes[i].destination->distFromSource = closestNode.connectedLanes[i].lightyears + closestNode.distFromSource;
+        cout<<closestNode.connectedLanes[i].destination->name<<" Dist from source: "<<closestNode.connectedLanes[i].destination->distFromSource<<endl;
     }
+
     //Rerun func until all nodes have been visited
     if(systems_in_graph.capacity() != visited.capacity()){
         defaultDist = 500;
@@ -190,4 +218,3 @@ void Graph::shortestPath(SolarSystemNode system){
 // string Graph::minimumSpanningTree(){}
 
 // SOLAR SYSTEM STUFF
-
