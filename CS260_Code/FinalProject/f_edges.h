@@ -5,8 +5,8 @@
 
 struct HyperLane{
     public:
-        SolarSystemNode* origin;
-        SolarSystemNode* destination;
+        SolarSystemNode* origin = nullptr;
+        SolarSystemNode* destination = nullptr;
         int lightyears;
         bool oneWay;
 
