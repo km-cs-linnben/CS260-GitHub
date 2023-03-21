@@ -26,9 +26,7 @@ bool Graph::addEdge(string source, string destination, int cost){
         cout<<"CHECK"<<endl;
         HyperLane newEdge;
         newEdge.origin = &systems_in_graph[sIndex];
-        cout<< &systems_in_graph[sIndex]<<endl;
         newEdge.destination = &systems_in_graph[dIndex];
-        cout<<&systems_in_graph[dIndex]<<endl;
         newEdge.lightyears = cost;
         lanes_in_graph.push_back(newEdge);
         //Make sure systems know they are connected to eachother
@@ -97,6 +95,7 @@ void Graph::minSpanHelper(SolarSystemNode system){
     return;
 }
 
+
 int Graph::nodeSearch(string sysname){
 
     for(int i =0; i <= systems_in_graph.capacity(); ++i){
@@ -109,24 +108,25 @@ int Graph::nodeSearch(string sysname){
     return 42;
 }
 
+
 // Good luck reading this
 // Finds shortest path that touches all nodes
 void Graph::shortestPath(SolarSystemNode system){
     //Start with first node in graph as source
     systems_in_graph[0].distFromSource = 0;
-    static SolarSystemNode closestNode;
+    static SolarSystemNode closestNode;    //Static keeps variable from resetting every loop
     cout<<endl<<"Beg Func Closest Node: "<<closestNode.name<<endl;
     static int defaultDist = 1000;
     cout<<endl<<"DEFAULT DIST: "<<defaultDist<<endl;
     HyperLane lane2Closest;
 
-    //For first loop only
+    //For first loop only, gave up on elegant solutions. I'm so tired...
     if(defaultDist == 1000){
         visited.push_back(systems_in_graph[0].name);
         visitedNodes.push_back(systems_in_graph[0]);
         cout<<endl<<"D loop"<<endl;
 
-        // Go through sources connected lanes
+        // Go through source's connected lanes
         for(int i = 0; i < systems_in_graph[0].connectedLanes.capacity(); ++i){
             //Update distance from source for only the systems that are adjacent to source.
             systems_in_graph[0].connectedLanes[i].destination->distFromSource = systems_in_graph[0].connectedLanes[i].lightyears;
@@ -155,14 +155,6 @@ void Graph::shortestPath(SolarSystemNode system){
         }
     }
 
-    // Get hyperlane to new closest node, add to visited hyperlane list for later printout
-    // for(int i = 0; i < (*visitedNodes.end()).connectedLanes.capacity(); ++i){
-    //     if((*visitedNodes.end()).connectedLanes[i].destination == &closestNode){
-    //         lane2Closest = (*visitedNodes.end()).connectedLanes[i];
-    //     }
-    // }
-    // lanesVisistedInOrder.push_back(lane2Closest);
-
     cout<<endl<<"Closest after graph search: "<<closestNode.name<<endl;
     cout<<"Closest Node distance from Source: "<<closestNode.distFromSource<<endl;
 
@@ -188,6 +180,10 @@ void Graph::shortestPath(SolarSystemNode system){
 }
 
 //TODO LIST
+// string Graph::minimumSpanningTree(){} that works
+
+
+// NOT REQUIRED BUT HELPFUL
 
 // bool Graph::removeNode(string name){
 //     int index = nodeSearch(name);
@@ -207,14 +203,3 @@ void Graph::shortestPath(SolarSystemNode system){
 // bool Graph::removeEdge(string source, string destination){}
 
 
-// bool Graph::nodeExists(string name){}
-
-
-// bool Graph::edgeExists(string source, string destination){}
-
-
-
-
-// string Graph::minimumSpanningTree(){}
-
-// SOLAR SYSTEM STUFF

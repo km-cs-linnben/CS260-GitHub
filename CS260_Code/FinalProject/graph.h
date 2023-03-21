@@ -14,10 +14,7 @@ class Graph {
         //bool removeNode(string name);
         int nodeSearch(string sysname);
         //int edgeSearch(string sysname);
-        // bool removeEdge(string source, string destination);
-
-        // bool nodeExists(string name);
-        // bool edgeExists(string source, string destination);
+        //bool removeEdge(string source, string destination);
         void shortestPath(SolarSystemNode system); // single-source shortest path
         //string minimumSpanningTree(Graph graphName);
         void minSpanHelper(SolarSystemNode system);
