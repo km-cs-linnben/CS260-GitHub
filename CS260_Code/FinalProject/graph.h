@@ -16,16 +16,14 @@ class Graph {
         //int edgeSearch(string sysname);
         //bool removeEdge(string source, string destination);
         void shortestPath(SolarSystemNode system); // single-source shortest path
-        //string minimumSpanningTree(Graph graphName);
-        void minSpanHelper(SolarSystemNode system);
+        void minSpanningTree(SolarSystemNode system);
 
         vector<SolarSystemNode> systems_in_graph;
         vector<HyperLane> lanes_in_graph;
-        // Had to add a string type visited list made of the names of the systems because find() would not work with a vector of SolarSystemNodes
+        // Had to add a string type visited list made of the names of the systems because find() would not work with a vector of Class SolarSystemNodes
         vector<string> visited;
         vector<SolarSystemNode> visitedNodes;
         vector<SolarSystemNode> sysqueue;
-        vector<SolarSystemNode> minSpanTree;
-        vector<string> minSpanNames;
+        vector<string> minSpanTree;
         vector<HyperLane> lanesVisistedInOrder;
 };

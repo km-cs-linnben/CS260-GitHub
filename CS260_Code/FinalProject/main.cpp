@@ -39,7 +39,13 @@ main(){
         cout<<"Distance: "<<Spacegraph.lanes_in_graph[i].lightyears<<endl;
     };
 
-
+    Spacegraph.minSpanningTree(Spacegraph.systems_in_graph[0]);
+    cout<<endl<<"Min Spanning Tree in order: "<<endl;
+    for(int i = 0; i < Spacegraph.minSpanTree.size(); ++i){
+        cout<<Spacegraph.minSpanTree[i]<<endl;
+    }
+    
+    Spacegraph.visited.clear();
     Spacegraph.shortestPath(Spacegraph.systems_in_graph[0]);
 
     cout<<endl<<"Shortest Path Function Visited Systems In Order Visited: "<<endl;

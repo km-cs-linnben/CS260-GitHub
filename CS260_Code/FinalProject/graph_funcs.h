@@ -43,7 +43,7 @@ bool Graph::addEdge(string source, string destination, int cost){
 }
 
 // Fills in Min Spanning Tree Vector
-void Graph::minSpanHelper(SolarSystemNode system){
+void Graph::minSpanningTree(SolarSystemNode system){
     SolarSystemNode current;
 
     current = system;
@@ -55,33 +55,27 @@ void Graph::minSpanHelper(SolarSystemNode system){
     }
 
     //Delete first position in queue if its not empty
-    if(sysqueue.capacity() > 0){
+    if(sysqueue.size() > 0){
         cout<<endl<<"First in Q deleted";
+        // Printout test to check queue
         for(auto element: sysqueue){
             cout<<element.name<<" "<<endl;
         }
         sysqueue.erase(sysqueue.begin());
+        // Another printout test
         cout<<"Q 0: "<<sysqueue[0].name<<endl;
     }
 
     // Add current to min span tree
     cout<<endl<<current.name<<" Pushed back of Tree";
-    minSpanTree.push_back(current);
+    minSpanTree.push_back(current.name);
 
     // Go through all of current system's connected lanes and add their destination to the queue and to visited if not already there
-    for(int i = 0; i < system.connectedLanes.capacity(); ++i){
+    for(int i = 0; i < system.connectedLanes.size(); ++i){
         bool found = false;
         cout<<endl<<"Looking at "<<(*system.connectedLanes[i].origin).name<<" to "<<(*system.connectedLanes[i].destination).name<<endl;
-        // Go through list of visited systems, if lane's destination matches anything in visited, break out of visited and move on to check next lane
-        for(int j = 0; j < visited.capacity(); ++j){
-            if(visited[j] != (*system.connectedLanes[i].destination).name){
-                continue;
-            }
-            found = true;
-            break;
-        }
-        // If lane's destination was found, do nothing and force loop to move on to next lane
-        if(found == true){continue;}
+        // Go through list of visited systems, if lane's destination matches anything in visited, do nothing and skip to next loop.
+        if(find(visited.begin(), visited.end(), (*system.connectedLanes[i].destination).name) != visited.end()){continue;}
         // If lane's destination was NOT found, assign that destination system to list of visited systems and into queue
         visited.push_back((*system.connectedLanes[i].destination).name);
         sysqueue.push_back((*system.connectedLanes[i].destination));
@@ -89,7 +83,7 @@ void Graph::minSpanHelper(SolarSystemNode system){
 
     //If queue is not empty, rerun func on next system in queue which should be at position 0 of queue
     if(!sysqueue.empty()){
-        minSpanHelper(sysqueue[0]);
+        minSpanningTree(sysqueue[0]);
     }
     //If queue is empty, return and exit func
     return;
